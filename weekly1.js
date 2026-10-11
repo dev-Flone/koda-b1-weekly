@@ -441,13 +441,16 @@ async function checkout() {
   const total = hitungTotalKeranjang();
 
   console.log("\n======= CHECKOUT =======");
-  console.log(`Total Pembayaran: Rp.${total.toLocaleString("id-ID")}`);
+  console.log(`Total Pembayaran: Rp.${total.toLocaleString("id-ID")}\n`);
 
   const konfirmasi = (
     await rl.question("Lanjutkan Pembayaran? (Y/N) ")
   ).toLowerCase();
 
-  if (konfirmasi !== "y") {
+  if (konfirmasi !== "y" && konfirmasi !== "n") {
+    console.log("Input tidak valid. Pilih Y/N ");
+    return;
+  } else if (konfirmasi === "n") {
     console.log("Pembayaran dibatalkan");
     return;
   }
@@ -455,7 +458,7 @@ async function checkout() {
   try {
     const hasilPembayaran = await prosesPembayaran(total);
 
-    console.log("======= PEMBAYARAN BERHASIL =======");
+    console.log("\n======= PEMBAYARAN BERHASIL =======");
     console.log(`Total dibayar: Rp.${hasilPembayaran.toLocaleString("id-ID")}`);
 
     keranjang.length = 0;
