@@ -285,12 +285,13 @@ main()
 const keranjang = [];
 
 function menuUtama() {
-  console.log("======================================");
+  console.log("\n======================================");
   console.log("          PIZZA ORDERING APP          ");
   console.log("======================================");
   console.log("1. Pesan Pizza");
   console.log("2. Lihat Keranjang");
-  console.log("3. Keluar");
+  console.log("3. Checkout");
+  console.log("4. Keluar");
   console.log("======================================");
 }
 
@@ -308,7 +309,7 @@ async function jumlahPizza() {
 }
 
 function menuPizza() {
-  console.log("\n==========MENU PESAN PIZZA===========");
+  console.log("\n========== MENU PESAN PIZZA ===========");
 
   for (let i = 0; i < pizza.length; i++) {
     console.log(
@@ -321,7 +322,9 @@ function menuPizza() {
 
 async function pilihanPizza() {
   while (true) {
-    const pilihan = Number(await rl.question("Pilih Pizza (1 - 10): "));
+    const pilihan = Number(
+      await rl.question(`Pilih Pizza (1 - ${pizza.length}): `),
+    );
 
     if (!Number.isInteger(pilihan) || pilihan < 1 || pilihan > pizza.length) {
       console.log(`Pilihan tidak valid. Masukkan angka 1 - ${pizza.length} `);
@@ -331,30 +334,76 @@ async function pilihanPizza() {
   }
 }
 
+const hitungTotalKeranjang = function () {
+  let total = 0;
+
+  for (let i = 0; i < keranjang.length; i++) {
+    total += keranjang[i].subTotal;
+  }
+  return total;
+};
+
+const hitungSubTotal = (harga, jumlah) => harga * jumlah;
+
+function tampilkanHasil(total, callback) {
+  callback(total);
+}
+
+function prosesPembayaran(total) {
+  return new Promise((resolve, reject) => {
+    console.log("Memproses Pembayaran...");
+
+    setTimeout(() => {
+      const berhasil = Math.random() >= 0.3;
+
+      if (berhasil) {
+        resolve(total);
+      } else {
+        reject(new Error("Transaksi ditolak. Silahkan coba lagi."));
+      }
+    }, 2000);
+  });
+}
+
+// 1. Pesan Pizza Menu
 async function pesanPizza() {
   menuPizza();
 
+  // Menjalankan dan menunggu fungsi pilihanPizza() dan jumlahPizaa() memberikan return
   const pesanan = await pilihanPizza();
   const jumlah = await jumlahPizza();
-  const subTotal = hitungSubTotal(pesanan.harga, jumlah);
 
-  const item = {
-    name: pesanan.name,
-    harga: pesanan.harga,
-    jumlah: jumlah,
-    subTotal: subTotal,
-  };
+  const itemLama = keranjang.find((item) => item.name === pesanan.name);
+  let itemBaru;
 
-  keranjang.push(item);
+  if (itemLama) {
+    itemLama.jumlah += jumlah;
+    itemLama.subTotal = hitungSubTotal(itemLama.harga, itemLama.jumlah);
+
+    itemBaru = itemLama;
+  } else {
+    const item = {
+      name: pesanan.name,
+      harga: pesanan.harga,
+      jumlah: jumlah,
+      subTotal: hitungSubTotal(pesanan.harga, jumlah),
+    };
+
+    keranjang.push(item);
+    itemBaru = item;
+  }
 
   console.log("\n===== PESANAN DITAMBAHKAN =======");
   console.log(`Nama: ${pesanan.name}`);
   console.log(`Harga: Rp.${pesanan.harga.toLocaleString("id-ID")}`);
-  console.log(`Jumlah: ${item.jumlah}`);
-  console.log(`Subtotal: ${item.subTotal.toLocaleString("id-ID")}`);
+  console.log(`Jumlah: ${jumlah}`);
+  console.log(
+    `Subtotal: ${hitungSubTotal(pesanan.harga, jumlah).toLocaleString("id-ID")}`,
+  );
   console.log("====================================");
 }
 
+// 2. Lihat Keranjang Menu
 function lihatKeranjang() {
   console.log("\n========= KERANJANG PESANAN ===========");
 
@@ -380,31 +429,52 @@ function lihatKeranjang() {
   });
 }
 
-const hitungTotalKeranjang = function () {
-  let total = 0;
-
-  for (let i = 0; i < keranjang.length; i++) {
-    total += keranjang[i].subTotal;
+// 3. Checkout Menu
+async function checkout() {
+  if (keranjang.length === 0) {
+    console.log(
+      "Keranjang masih kosong. Silahkan pesan Pizza terlebih dahulu.",
+    );
+    return;
   }
-  return total;
-};
 
-const hitungSubTotal = (harga, jumlah) => harga * jumlah;
+  const total = hitungTotalKeranjang();
 
-function tampilkanHasil(total, callback) {
-  callback(total);
+  console.log("\n======= CHECKOUT =======");
+  console.log(`Total Pembayaran: Rp.${total.toLocaleString("id-ID")}`);
+
+  const konfirmasi = (
+    await rl.question("Lanjutkan Pembayaran? (Y/N) ")
+  ).toLowerCase();
+
+  if (konfirmasi !== "y") {
+    console.log("Pembayaran dibatalkan");
+    return;
+  }
+
+  try {
+    const hasilPembayaran = await prosesPembayaran(total);
+
+    console.log("======= PEMBAYARAN BERHASIL =======");
+    console.log(`Total dibayar: Rp.${hasilPembayaran.toLocaleString("id-ID")}`);
+
+    keranjang.length = 0;
+  } catch (err) {
+    console.log("Pembayaran Gagal: ", err.message);
+  }
 }
 
+// Fungsi Utama
 async function main() {
   let program = true;
 
   while (program) {
     menuUtama();
 
-    const pilihan = Number(await rl.question("Pilih Menu (1 - 3): "));
+    const pilihan = Number(await rl.question("Pilih Menu (1 - 4): "));
 
-    if (!Number.isInteger(pilihan) || pilihan < 1 || pilihan > 3) {
-      console.log("Pilihan tidak valid. Masukkan angka 1 - 3.\n");
+    if (!Number.isInteger(pilihan) || pilihan < 1 || pilihan > 4) {
+      console.log("Pilihan tidak valid. Masukkan angka 1 - 4.\n");
       continue;
     }
 
@@ -413,17 +483,20 @@ async function main() {
         await pesanPizza();
         break;
       case 2:
-        console.log("Kamu memilih Lihat Keranjang");
         lihatKeranjang();
         break;
       case 3:
-        console.log("terimakasih sudah berkunjung");
+        await checkout();
+        break;
+      case 4:
+        console.log("Terimakasih sudah berkunjung");
         program = false;
         break;
     }
   }
 }
 
+// Menjalankan Program, menangkap error, dan menutup input
 main()
   .catch((err) => {
     console.log("Terjadi Kesalahan.", err);
