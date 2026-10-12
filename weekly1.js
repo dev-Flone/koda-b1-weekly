@@ -281,6 +281,23 @@ main()
   });
 */
 
+async function getData() {
+  const url = "https://jsonplaceholder.typicode.com/users";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json();
+
+    for (let i = 0; i < result.length; i++) {
+      console.log(`${i + 1}. ${result[i].name}`);
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
 // V3
 const keranjang = [];
 
@@ -291,7 +308,8 @@ function menuUtama() {
   console.log("1. Pesan Pizza");
   console.log("2. Lihat Keranjang");
   console.log("3. Checkout");
-  console.log("4. Keluar");
+  console.log("4. Data Customer");
+  console.log("5. Keluar");
   console.log("======================================");
 }
 
@@ -476,8 +494,8 @@ async function main() {
 
     const pilihan = Number(await rl.question("Pilih Menu (1 - 4): "));
 
-    if (!Number.isInteger(pilihan) || pilihan < 1 || pilihan > 4) {
-      console.log("Pilihan tidak valid. Masukkan angka 1 - 4.\n");
+    if (!Number.isInteger(pilihan) || pilihan < 1 || pilihan > 5) {
+      console.log(`Pilihan tidak valid. Masukkan angka 1 - 5.\n`);
       continue;
     }
 
@@ -492,6 +510,9 @@ async function main() {
         await checkout();
         break;
       case 4:
+        await getData();
+        break;
+      case 5:
         console.log("Terimakasih sudah berkunjung");
         program = false;
         break;
