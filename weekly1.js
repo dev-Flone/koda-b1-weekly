@@ -281,6 +281,7 @@ main()
   });
 */
 
+// V3
 async function getData() {
   const url = "https://jsonplaceholder.typicode.com/users";
   try {
@@ -298,7 +299,6 @@ async function getData() {
   }
 }
 
-// V3
 const keranjang = [];
 
 function menuUtama() {
