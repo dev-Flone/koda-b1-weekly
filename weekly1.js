@@ -291,6 +291,8 @@ async function getData() {
     }
     const result = await response.json();
 
+    console.log("======= DATA CUSTOMER =======\n");
+
     for (let i = 0; i < result.length; i++) {
       console.log(`${i + 1}. ${result[i].name}`);
     }
