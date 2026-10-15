@@ -1,19 +1,32 @@
-# React + Vite
+# KairnPizza
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Website Description
 
-Currently, two official plugins are available:
+KairnPizza adalah website restoran pizza sederhana dimana user bisa melihat homepage, list menu, dan mengajukan aduan (form)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshot
+### Home
+![Home](./public/ss/home.png)
 
-## React Compiler
+### Menu
+![Menu1](./public/ss/menu1.png)
+![Menu2](./public/ss/menu2.png)
+![Menu3](./public/ss/menu3.png)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Contact
+![Contact1](./public/ss/contact1.png)
+![Contact2](./public/ss/contact2.png)
+![Contact3](./public/ss/contact2.png)
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## How the Website Works
 
-## Expanding the ESLint configuration
+- Menggunakan navigasi untuk mengunjungi halaman utama, menu, about, dan kontak.
+- Di halaman menu, kita bisa melakukan pencarian untuk pizza yang diinginkan.
+- Di halaman kontak, kita bisa mengirimkan form, yang dimana akan disimpan didalam localstorage. Lalu ditampilkan di bagian bawah halaman, kita bisa juga menghapus pesan yang kita inginkan menggunakan tombol delete.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to Run
+
+1. Install react dengan `npm create vite@latest`
+2. Install tailwind dengan `npm install tailwindcss @tailwindcss/vite`
+3. Install react router dom dengan `npm install react-router-dom`
+4. Jalankan dengan `npm run dev` di terminal
