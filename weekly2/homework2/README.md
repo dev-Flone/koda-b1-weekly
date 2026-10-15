@@ -16,7 +16,7 @@ KairnPizza adalah website restoran pizza sederhana dimana user bisa melihat home
 ### Contact
 ![Contact1](./public/ss/contact1.png)
 ![Contact2](./public/ss/contact2.png)
-![Contact3](./public/ss/contact2.png)
+![Contact3](./public/ss/contact3.png)
 
 ## How the Website Works
 
