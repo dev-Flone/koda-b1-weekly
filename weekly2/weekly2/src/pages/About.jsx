@@ -24,7 +24,7 @@ const About = () => (
         <img
           src="/images/hero.jpg"
           alt="Alex Carter"
-          className="mx-auto h- w-72 rounded-2xl object-cover shadow-md md:h-56 md:w-96 lg:mx-0 lg:h-80"
+          className="mx-auto h- w-72 rounded-2xl object-cover shadow-md md:h-96 md:w-96 lg:mx-0 lg:h-80"
         />
         <div>
           <h2 className="text-2xl font-bold leading-8 text-[#101828]">
