@@ -1,19 +1,12 @@
 import { ArrowUp } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-
-const quickLinks = [
-  { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Projects", to: "/projects" },
-  { label: "Experience", to: "/experience" },
-  { label: "Contact", to: "/contact" },
-];
+import navigationItems from "../data/navigation";
 
 const Footer = () => {
   return (
-    <footer className="py-14 px-6 bg-[#101828]">
+    <footer className="bg-[#101828] px-6 py-14 md:px-8 lg:px-12">
       {/* Detail */}
-      <div className="flex flex-col gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Alex Carter */}
         <div className="flex flex-col">
           <Link to="/" className="font-bold leading-7 text-[20px] text-white">
@@ -41,15 +34,16 @@ const Footer = () => {
             quick links
           </h1>
           <ol className="pt-5 flex flex-col gap-3">
-            {quickLinks.map(({ label, to }) => (
+            {navigationItems.map(({ label, to }) => (
               <li key={to} className="text-[14px] leading-5">
                 <NavLink
                   to={to}
                   end={to === "/"}
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
                   className={({ isActive }) =>
-                    isActive
-                      ? "text-white"
-                      : "text-[#99A1AF] hover:text-white"
+                    isActive ? "text-white" : "text-[#99A1AF] hover:text-white"
                   }
                 >
                   {label}
@@ -82,8 +76,8 @@ const Footer = () => {
           </div>
         </div>
         {/* Margin */}
-        <div className="pt-10px">
-          <div className="flex flex-col items-center justify-between border-t-[.77px] border-[#1E2939] pt-6">
+        <div className="pt-10 lg:col-span-3">
+          <div className="flex flex-col items-center justify-between gap-4 border-t-[.77px] border-[#1E2939] pt-6 md:flex-row">
             <p className="text-[14px] text-[#6A7282] leading-5">
               © 2026 Alex Carter. All rights reserved.
             </p>

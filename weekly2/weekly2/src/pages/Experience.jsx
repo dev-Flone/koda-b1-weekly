@@ -2,24 +2,22 @@ import { ArrowDownToLine } from "lucide-react";
 import experiences from "../data/experience";
 import certificates from "../data/certificates";
 import awards from "../data/awards";
+import SectionHeading from "../components/SectionHeading";
 
 const Experience = () => {
   return (
     <article>
       {/* Section 1 */}
       <section className="py-16 border-b-[.77px] border-[#F3F4F6] bg-[#F9FAFB]">
-        <div className="px-6 flex flex-col gap-5">
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px]  uppercase font-semibold">
-              career history
-            </p>
-            <h1 className="pt-3 text-[36px] text-[#101828] leading-10  font-extrabold capitalize">
-              experience
-            </h1>
-            <p className="pt-4 text-[16px] text-[#6A7282] ">
-              My professional journey, credentials, and recognition.
-            </p>
-          </div>
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 md:px-8 lg:flex-row lg:items-end lg:justify-between lg:px-12">
+          <SectionHeading
+            eyebrow="career history"
+            title="experience"
+            titleAs="h1"
+            titleClassName="text-[36px] font-extrabold leading-10"
+            description="My professional journey, credentials, and recognition."
+            align="left"
+          />
           <button className="py-4 px-6 flex gap-2 bg-[#111111] text-[16px] text-white leading-6 font-semibold rounded-lg w-fit cursor-pointer">
             <ArrowDownToLine /> Download Resume
           </button>
@@ -27,32 +25,36 @@ const Experience = () => {
       </section>
 
       {/* Section 2 */}
-      <section className="py-16 px-6">
+      <section className="mx-auto max-w-7xl px-6 py-16 md:px-8 lg:px-12">
         {/* Experience */}
         <div>
           {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase font-semibold">
-              work history
-            </p>
-            <h1 className="pt-2 text-[24px] text-[#101828] leading-8 capitalize font-bold">
-              professional experience
-            </h1>
-            <div className=" pt-4 ">
-              <div className="h-1 w-10 rounded-full bg-[#111111]"></div>
-            </div>
-          </div>
+          <SectionHeading
+            eyebrow="work history"
+            title="professional experience"
+            align="left"
+            className="max-w-none"
+            titleClassName="pt-2 text-2xl leading-8"
+          />
 
           {/* Content */}
           <div className="pt-10">
             <table className="rounded-xl bg-white border-[.77px] border-[#F3F4F6] shadow-sm w-full overflow-hidden">
-              <thead className="bg-[#111111] ">
-                <th className="text-[14px] text-white leading-5 font-semibold px-5 py-2.5">
-                  Company
-                </th>
-                <th className="text-[14px] text-white leading-5 font-semibold px-5 py-2.5">
-                  Position
-                </th>
+              <thead className="bg-[#111111]">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-5 py-2.5 text-left text-sm font-semibold leading-5 text-white"
+                  >
+                    Company
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-5 py-2.5 text-left text-sm font-semibold leading-5 text-white"
+                  >
+                    Position
+                  </th>
+                </tr>
               </thead>
               <tbody>
                 {experiences.map((exp) => (
@@ -73,21 +75,17 @@ const Experience = () => {
         {/* Credential */}
         <div className="pt-16">
           {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase font-semibold">
-              credentials
-            </p>
-            <h1 className="pt-2 text-[24px] text-[#101828] leading-8 capitalize font-bold">
-              certifications
-            </h1>
-            <div className=" pt-4 ">
-              <div className="h-1 w-10 rounded-full bg-[#111111]"></div>
-            </div>
-          </div>
+          <SectionHeading
+            eyebrow="credentials"
+            title="certifications"
+            align="left"
+            className="max-w-none"
+            titleClassName="pt-2 text-2xl leading-8"
+          />
 
           {/* Content */}
           <div className="pt-10">
-            <div className="grid gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-3">
               {certificates.map((certi) => (
                 <div
                   key={certi.id}
@@ -97,9 +95,9 @@ const Experience = () => {
                     {certi.short}
                   </div>
                   <div>
-                    <h1 className="text-[14px] text-[#101828] leading-5 font-semibold">
+                    <h3 className="text-[14px] text-[#101828] leading-5 font-semibold">
                       {certi.name}
-                    </h1>
+                    </h3>
                     <p className="pt-1 text-[12px] text-[#FF5F22] leading-4 font-medium">
                       {certi.company}
                     </p>
@@ -116,37 +114,33 @@ const Experience = () => {
         {/* Awards */}
         <div className="pt-16">
           {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase font-semibold">
-              recognition
-            </p>
-            <h1 className="pt-2 text-[24px] text-[#101828] leading-8 capitalize font-bold">
-              awards & honor
-            </h1>
-            <div className=" pt-4 ">
-              <div className="h-1 w-10 rounded-full bg-[#111111]"></div>
-            </div>
-          </div>
+          <SectionHeading
+            eyebrow="recognition"
+            title="awards & honor"
+            align="left"
+            className="max-w-none"
+            titleClassName="pt-2 text-2xl leading-8"
+          />
 
           {/* Content */}
           <div className="pt-10">
-            <div className="grid gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-1 lg:grid-cols-2">
               {awards.map((award) => (
                 <div
                   key={award.id}
                   className="rounded-xl p-6 bg-white border-[.77px] border-[#F3F4F6] shadow-md"
                 >
                   <div className="flex justify-between">
-                    <h1 className="text-[16px] text-[#101828] leading-6 font-semibold">
+                    <h3 className="text-[16px] text-[#101828] leading-6 font-semibold">
                       {award.name}
-                    </h1>
+                    </h3>
                     <span className="text-[12px] text-[#99A1AF] leading-4 font-medium">
                       {award.date}
                     </span>
                   </div>
-                  <h1 className="pt-2 text-[12px] text-[#FF5F22] leading-4 font-semibold">
+                  <p className="pt-2 text-[12px] text-[#FF5F22] leading-4 font-semibold">
                     {award.company}
-                  </h1>
+                  </p>
                   <p className="pt-3 text-[14px] text-[#6A7282] leading-[22.75px]">
                     {award.description}
                   </p>

@@ -1,46 +1,59 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import navigationItems from "../data/navigation";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
 
-  const navItems = [
-    { label: "Home", to: "/" },
-    { label: "About", to: "/about" },
-    { label: "Projects", to: "/projects" },
-    { label: "Experience", to: "/experience" },
-    { label: "Contact", to: "/contact" },
-  ];
-
-  const toggleMenu = () => {
-    setIsActive((prev) => !prev);
-  };
-
-  const closeMenu = () => {
+  const handleNavigation = () => {
     setIsActive(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <nav>
-      {/* Hamburger Menu */}
-      <div className="px-6 flex justify-between h-16 items-center">
+    <nav
+      aria-label="Main navigation"
+      className="sticky top-0 z-50 w-full bg-white/95"
+    >
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-8 lg:px-12">
         <Link
           to="/"
-          onClick={closeMenu}
+          onClick={handleNavigation}
           className="font-bold text-[18px] text-center leading-7 text-[#111111] cursor-pointer"
         >
           Alex Carter
         </Link>
 
-        {/* Hamburger Button */}
+        <div className="hidden items-center gap-1 lg:flex">
+          {navigationItems.map(({ label, to }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/"}
+              onClick={handleNavigation}
+              className={({ isActive: current }) =>
+                `rounded-md px-4 py-2 text-sm font-medium ${current ? "bg-[#F3F4F6] text-[#111111]" : "text-[#4A5565] hover:text-[#111111]"}`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+          <Link
+            to="/contact"
+            onClick={handleNavigation}
+            className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+          >
+            Hire Me
+          </Link>
+        </div>
+
         <button
           type="button"
-          className="flex h-9.5 w-9.5 rounded-md p-2 cursor-pointer
-      "
+          className="flex h-9.5 w-9.5 cursor-pointer rounded-md p-2 lg:hidden"
           aria-label={isActive ? "Close menu" : "Open menu"}
           aria-expanded={isActive}
           aria-controls="navbar-menu"
-          onClick={toggleMenu}
+          onClick={() => setIsActive((active) => !active)}
         >
           <div className="flex h-5.5 w-5.5 flex-col justify-center gap-1">
             <span
@@ -56,27 +69,35 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Dropdown Menu */}
       {isActive && (
-        <ol
+        <ul
           id="navbar-menu"
-          className="flex flex-col gap-1 border-t-[.77px] border-[#F3F4F6] pt-2 px-6 pb-5"
+          className="flex flex-col gap-1 border-t-[.77px] border-[#F3F4F6] px-6 pb-5 pt-2 lg:hidden"
         >
-          {navItems.map(({ label, to }) => (
+          {navigationItems.map(({ label, to }) => (
             <li key={to}>
               <NavLink
                 to={to}
                 end={to === "/"}
-                onClick={closeMenu}
+                onClick={handleNavigation}
                 className={({ isActive }) =>
-                  `block rounded-md px-4 py-3 w-full text-left font-medium text-[14px] leading-5 text-[#111111] ${isActive ? "bg-[#F3F4F6]" : "bg-white hover:bg-gray-50"}`
+                  `block w-full rounded-md px-4 py-3 text-left text-[14px] font-medium leading-5 text-[#111111] ${isActive ? "bg-[#F3F4F6]" : "bg-white hover:bg-[#F3F4F6]"}`
                 }
               >
                 {label}
               </NavLink>
             </li>
           ))}
-        </ol>
+          <li>
+            <Link
+              to="/contact"
+              onClick={handleNavigation}
+              className="block rounded-md bg-[#111111] px-4 py-2 text-[14px] font-medium leading-5 text-white hover:bg-black"
+            >
+              Hire Me
+            </Link>
+          </li>
+        </ul>
       )}
     </nav>
   );

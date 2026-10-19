@@ -3,6 +3,7 @@ const projects = [
     id: 1,
     image: "/images/project1.jpg",
     name: "ShopEase",
+    featured: true,
     type: "Fullstack",
     description:
       "A full-featured e-commerce platform with product catalog, shopping cart, order history, wishlists, and Stripe payment integration.",
@@ -12,6 +13,7 @@ const projects = [
     id: 2,
     image: "/images/project2.jpg",
     name: "TaskFlow",
+    featured: true,
     type: "Frontend",
     description:
       "A drag-and-drop task management app with real-time collaboration, team workspaces, priority labels, and deadline tracking.",
@@ -30,6 +32,7 @@ const projects = [
     id: 4,
     image: "/images/project4.jpg",
     name: "ChatSpace",
+    featured: true,
     type: "Fullstack",
     description:
       "Real-time messaging platform with channels, direct messages, file sharing, emoji reactions, and user presence indicators.",

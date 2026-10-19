@@ -1,438 +1,195 @@
 import { MdArrowRight } from "react-icons/md";
+import {
+  careerHighlights,
+  education,
+  interests,
+  proficiency,
+} from "../data/about";
+import SectionHeading from "../components/SectionHeading";
 
-const About = () => {
-  const academicList = [
-    {
-      degree: "B.S. Computer Science",
-      institution: "UC Berkeley · Berkeley, CA",
-      year: "2019 - 2023",
-      description:
-        "Graduated with honors. Dean's list 2021 & 2022. Focused on software engineering, distribution systems, and human-computer interaction. ",
-    },
-    {
-      degree: "Full Stack Web Development",
-      institution: "Codecademy Pro · Online",
-      year: "2022",
-      description:
-        "Intensive program covering modern JavaScript, React, Node.js, databases, and deployment workflows using industry-standard tools.",
-    },
-    {
-      degree: "Data Structures & Algorithms",
-      institution: "Coursera — Stanford University · Online",
-      year: "2021",
-      description:
-        "Certificate course covering sorting algorithms, trees, graphs, dynamic programming, and complexity analysis.",
-    },
-  ];
-  return (
-    <section>
-      {/* About 1 */}
-      <div className="border-b-[.77px] border-[#F3F4F6] py-16 bg-[#F3F4F6]">
-        <div className="px-6 flex flex-col items-center">
-          <p className="font-semibold text-[12px] leading-4 text-[#FF5F22] uppercase text-center">
-            get to know me
-          </p>
-          <h1 className="pt-3 text-[36px] text-[#101828] font-extrabold leading-10 capitalize text-center">
-            about alex
-          </h1>
-          <p className="pt-4 text-[16px] leading-6 text-[#6A7282] text-center">
-            A passionate developer who loves building things that make a real
-            difference.
-          </p>
-        </div>
-      </div>
+const About = () => (
+  <article>
+    <header className="border-b-[.77px] border-[#F3F4F6] bg-[#F3F4F6] py-16">
+      <SectionHeading
+        eyebrow="get to know me"
+        title="about alex"
+        titleAs="h1"
+        titleClassName="text-[36px] font-extrabold leading-10"
+        description="A passionate developer who loves building things that make a real difference."
+      />
+    </header>
 
-      {/* About 2 */}
-      <div className="py-20">
-        <div className="grid grid-cols-1 gap-16 justify-items-center">
-          <div className="row-start-1 col-start-1 row-span-1 col-span-1 h-72">
-            <img
-              src="/images/hero.jpg"
-              alt="hero.jpg"
-              className="rounded-2xl shadow-md w-72 h-72"
-            />
-          </div>
-          <div className="row-start-2 col-start-1 row-span-1 col-span-1 w-[342.23px]">
-            <h1 className="font-bold text-[24px] leading-8 text-[#101828]">
-              Building the web, one line at a time.
-            </h1>
-            <div className="pt-5">
-              <p className="text-[16px] leading-6.5 text-[#6A7282]">
-                I'm Alex Carter, a full-stack software developer based in San
-                Francisco, CA. I graduated from UC Berkeley with a B.S. in
-                Computer Science in 2023 and have been building web products
-                professionally ever since.
-              </p>
-              <p className="text-[16px] leading-6.5 text-[#6A7282] pt-4">
-                My stack spans React and TypeScript on the frontend, Node.js and
-                Python on the backend, and PostgreSQL and MongoDB for data. I
-                care deeply about performance, accessibility, and writing code
-                that my future self won't hate.
-              </p>
-              <p className="text-[16px] leading-6.5 text-[#6A7282] pt-4">
-                When I'm not coding, you'll find me rock climbing at the local
-                gym, experimenting with pour-over coffee, or reading science
-                fiction. I'm actively looking for my next challenge.
-              </p>
-            </div>
-            <div className="pt-7 flex flex-wrap gap-3">
-              <span className="py-2 px-4 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] rounded-full">
-                San Francisco, CA
-              </span>
-              <span className="py-2 px-4 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] rounded-full">
-                Open to Roles
-              </span>
-              <span className="py-2 px-4 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] rounded-full">
-                CS, UC Berkeley
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* About 3 */}
-      <div className="py-20 bg-[#F9FAFB]">
-        <div className="px-6">
-          {/* Container 1 */}
-          <div>
-            <p className="font-semibold text-[12px] text-[#FF5F22] leading-4 text-center tracking-[1.2px] uppercase">
-              education
+    <section className="py-20">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 md:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12">
+        <img
+          src="/images/hero.jpg"
+          alt="Alex Carter"
+          className="mx-auto h- w-72 rounded-2xl object-cover shadow-md md:h-56 md:w-96 lg:mx-0 lg:h-80"
+        />
+        <div>
+          <h2 className="text-2xl font-bold leading-8 text-[#101828]">
+            Building the web, one line at a time.
+          </h2>
+          <div className="space-y-4 pt-5 text-base leading-relaxed text-[#6A7282]">
+            <p>
+              I'm Alex Carter, a full-stack software developer based in San
+              Francisco, CA. I graduated from UC Berkeley with a B.S. in
+              Computer Science in 2023 and have been building web products
+              professionally ever since.
             </p>
-            <h1 className="pt-3 text-[30px] text-[#101828] font-bold leading-9 text-center capitalize">
-              academic background
-            </h1>
-            <div className="pt-5 px-[147.12px]">
-              <div className="w-12 h-1 bg-[#111111] rounded-full mx-auto"></div>
-            </div>
-          </div>
-
-          {/* Container 2 */}
-          <ol className="relative pt-14 pl-12 flex flex-col gap-10">
-            {/* Garis vertikal timeline */}
-            <div className="absolute left-3.75 top-14 bottom-0 w-px bg-[#E5E7EB]" />
-
-            {academicList.map((list, index) => (
-              <li key={index} className="relative">
-                {/* Timeline marker */}
-                <div className="absolute -left-9.5 top-2 w-3 h-3 bg-[#101828] border-2 border-white rounded-sm shadow-sm z-10" />
-
-                {/* Card */}
-                <div className="p-6 border-[.77px] border-[#F3F4F6] bg-white shadow-md rounded-xl">
-                  <div className="flex flex-col gap-2">
-                    <div>
-                      <h2 className="text-[16px] text-[#101828] font-semibold leading-6">
-                        {list.degree}
-                      </h2>
-
-                      <h3 className="pt-0.5 text-[14px] text-[#FF5F22] font-medium leading-5">
-                        {list.institution}
-                      </h3>
-                    </div>
-
-                    <span className="py-1 px-3 bg-[#FFF3EE] border-[.77px] border-[#FFF3EE] rounded-full text-[12px] text-[#FF5F22] w-fit">
-                      {list.year}
-                    </span>
-                  </div>
-
-                  <p className="pt-2 text-[14px] text-[#6A7282] leading-[22.75px]">
-                    {list.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-
-      {/* About 4 */}
-      <div className="py-20">
-        <div className="px-6">
-          {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase text-center font-semibold">
-              career
+            <p>
+              My stack spans React and TypeScript on the frontend, Node.js and
+              Python on the backend, and PostgreSQL and MongoDB for data. I care
+              deeply about performance, accessibility, and writing code that my
+              future self won't hate.
             </p>
-            <h1 className="pt-3 text-[30px] text-[#101828] leading-9 text-center font-bold capitalize">
-              work experience
-            </h1>
-            <div className="pt-5 px-[147.12px]">
-              <div className="h-1 w-12 rounded-full bg-[#111111] mx-auto"></div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="flex flex-col gap-6 pt-14">
-            {/* Card 1 */}
-            <div className="rounded-xl p-7 border-[.77px] border-[#F3F4F6] shadow-md">
-              <div className="flex flex-col gap-2">
-                <div>
-                  <h1 className="text-[18px] text-[#101828] leading-7 font-semibold capitalize">
-                    junior software developer
-                  </h1>
-                  <h2 className="pt-0.5 text-[14px] text-[#111111] leading-5 font-medium">
-                    TechCorp Inc. · San Francisco, CA
-                  </h2>
-                </div>
-                <span className="rounded-full py-1.5 px-3 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] font-medium text-[12px] text-[#4A5565] leading-4 w-fit">
-                  Jan 2023 - Present
-                </span>
-              </div>
-              <div className="pt-4">
-                <div className="flex gap-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Build and maintain full-stack features for a B2B SaaS
-                    platform serving 10,000+ users.
-                  </p>
-                </div>
-                <div className="flex gap-2.5 pt-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Collaborate with designers and senior engineers in 2-week
-                    agile sprints.
-                  </p>
-                </div>
-                <div className="flex gap-2.5 pt-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Reduced API response times by 35% through query optimization
-                    and Redis caching.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="rounded-xl p-7 border-[.77px] border-[#F3F4F6] shadow-md">
-              <div className="flex flex-col gap-2">
-                <div>
-                  <h1 className="text-[18px] text-[#101828] leading-7 font-semibold capitalize">
-                    Software Engineering Intern
-                  </h1>
-                  <h2 className="pt-0.5 text-[14px] text-[#111111] leading-5 font-medium">
-                    StartupXYZ · San Jose, CA
-                  </h2>
-                </div>
-                <span className="rounded-full py-1.5 px-3 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] font-medium text-[12px] text-[#4A5565] leading-4 w-fit">
-                  May 2022 – Aug 2022
-                </span>
-              </div>
-              <div className="pt-4">
-                <div className="flex gap-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Developed React components for the company's customer-facing
-                    dashboard.
-                  </p>
-                </div>
-                <div className="flex gap-2.5 pt-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Wrote unit and integration tests, achieving 85% code
-                    coverage across new modules.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="rounded-xl p-7 border-[.77px] border-[#F3F4F6] shadow-md">
-              <div className="flex flex-col gap-2">
-                <div>
-                  <h1 className="text-[18px] text-[#101828] leading-7 font-semibold capitalize">
-                    Web Developer
-                  </h1>
-                  <h2 className="pt-0.5 text-[14px] text-[#111111] leading-5 font-medium">
-                    Freelance · Remote
-                  </h2>
-                </div>
-                <span className="rounded-full py-1.5 px-3 bg-[#F9FAFB] border-[.77px] border-[#E5E7EB] font-medium text-[12px] text-[#4A5565] leading-4 w-fit">
-                  Jun 2022 – Dec 2022
-                </span>
-              </div>
-              <div className="pt-4">
-                <div className="flex gap-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Built responsive websites and web apps for 8 small business
-                    clients.
-                  </p>
-                </div>
-                <div className="flex gap-2.5 pt-2.5">
-                  <MdArrowRight color="#FF5F22" />
-                  <p className="text-[14px] text-[#6A7282] leading-5">
-                    Managed client communication, requirements gathering,
-                    scoping, and delivery.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* About 5 */}
-      <div className="py-20">
-        <div className="px-6">
-          {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase text-center font-semibold">
-              skills
+            <p>
+              When I'm not coding, you'll find me rock climbing at the local
+              gym, experimenting with pour-over coffee, or reading science
+              fiction. I'm actively looking for my next challenge.
             </p>
-            <h1 className="pt-3 text-[30px] text-[#101828] leading-9 text-center font-bold capitalize">
-              technical proficiency
-            </h1>
-            <div className="pt-5 px-[147.12px]">
-              <div className="h-1 w-12 rounded-full bg-[#111111] mx-auto"></div>
-            </div>
           </div>
-
-          {/* Content */}
-          <div className="pt-14">
-            <div className="grid grid-rows-6 grid-cols-1 gap-y-8 gap-x-12">
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    React / Next.js
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    90%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[90%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    TypeScript / Javascript
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    88%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[88%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    Node.js / Express
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    82%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[82%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    Python / Django
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    74%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[74%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    PostgreSQL / MongoDB
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    80%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[80%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div>
-                <div className="flex justify-between">
-                  <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                    Docker / AWS
-                  </p>
-                  <span className="text-[14px] text-[#FF5F22] leading-5 font-semibold">
-                    65%
-                  </span>
-                </div>
-                <div className="relative pt-2 h-2.5 w-full bg-[#E5E7EB] rounded-full">
-                  <div className="absolute rounded-full h-2.5 w-[65%] bg-[#111111] top-0"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* About 6 */}
-      <div className="py-20">
-        <div className="px-6">
-          {/* Heading */}
-          <div>
-            <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] uppercase text-center font-semibold">
-              personal
-            </p>
-            <h1 className="pt-3 text-[30px] text-[#101828] leading-9 text-center font-bold capitalize">
-              interest & hobbies
-            </h1>
-            <div className="pt-5 px-[147.12px]">
-              <div className="h-1 w-12 rounded-full bg-[#111111] mx-auto"></div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="pt-14">
-            <ul className="flex flex-wrap gap-3 justify-center">
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Open Source
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                UI/UX Design
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Machine Learning
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                System Design
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Rock Climbing
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Photography
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Coffee Brewing
-              </li>
-              <li className="py-2.5 px-5 rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] text-[14px] text-[#364153] font-medium text-center">
-                Reading Sci-Fi
-              </li>
-            </ul>
-          </div>
+          <ul className="flex flex-wrap gap-3 pt-7">
+            {["San Francisco, CA", "Open to Roles", "CS, UC Berkeley"].map(
+              (item) => (
+                <li
+                  key={item}
+                  className="rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] px-4 py-2"
+                >
+                  {item}
+                </li>
+              ),
+            )}
+          </ul>
         </div>
       </div>
     </section>
-  );
-};
+
+    <section className="bg-[#F9FAFB] py-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+        <SectionHeading eyebrow="education" title="academic background" />
+        <ol className="relative mx-auto flex max-w-4xl flex-col gap-10 pl-12 pt-14">
+          <li
+            aria-hidden="true"
+            className="absolute bottom-0 left-3.75 top-14 w-px bg-[#E5E7EB]"
+          />
+          {education.map(({ degree, institution, year, description }) => (
+            <li key={degree} className="relative">
+              <span
+                aria-hidden="true"
+                className="absolute -left-9.5 top-2 z-10 h-3 w-3 rounded-sm border-2 border-white bg-[#101828] shadow-sm"
+              />
+              <article className="rounded-xl border-[.77px] border-[#F3F4F6] bg-white p-6 shadow-md">
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <h3 className="font-semibold leading-6 text-[#101828]">
+                      {degree}
+                    </h3>
+                    <p className="pt-0.5 text-sm font-medium leading-5 text-[#FF5F22]">
+                      {institution}
+                    </p>
+                  </div>
+                  <span className="w-fit rounded-full border-[.77px] border-[#FFF3EE] bg-[#FFF3EE] px-3 py-1 text-xs text-[#FF5F22]">
+                    {year}
+                  </span>
+                </div>
+                <p className="pt-2 text-sm leading-[22.75px] text-[#6A7282]">
+                  {description}
+                </p>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section className="py-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+        <SectionHeading eyebrow="career" title="work experience" />
+        <div className="grid grid-cols-1 gap-6 pt-14 md:grid-cols-2 lg:grid-cols-3">
+          {careerHighlights.map(({ title, company, date, highlights }) => (
+            <article
+              key={title}
+              className="rounded-xl border-[.77px] border-[#F3F4F6] p-7 shadow-md"
+            >
+              <h3 className="text-lg font-semibold capitalize leading-7 text-[#101828]">
+                {title}
+              </h3>
+              <p className="pt-0.5 text-sm font-medium leading-5 text-[#111111]">
+                {company}
+              </p>
+              <span className="mt-3 inline-block w-fit rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] px-3 py-1.5 text-xs font-medium leading-4 text-[#4A5565]">
+                {date}
+              </span>
+              <ul className="space-y-2.5 pt-4">
+                {highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className="flex gap-2.5 text-sm leading-5 text-[#6A7282]"
+                  >
+                    <MdArrowRight
+                      aria-hidden="true"
+                      className="mt-0.5 shrink-0 text-[#FF5F22]"
+                    />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="bg-[#F9FAFB] py-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+        <SectionHeading eyebrow="skills" title="technical proficiency" />
+        <ul className="grid grid-cols-1 gap-x-12 gap-y-8 pt-14 md:grid-cols-2">
+          {proficiency.map(({ name, score }) => (
+            <li key={name}>
+              <div className="flex justify-between">
+                <span className="text-sm font-medium leading-5 text-[#364153]">
+                  {name}
+                </span>
+                <span className="text-sm font-semibold leading-5 text-[#FF5F22]">
+                  {score}%
+                </span>
+              </div>
+              <div
+                className="relative mt-2 h-2.5 w-full rounded-full bg-[#E5E7EB]"
+                role="progressbar"
+                aria-label={name}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={score}
+              >
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#111111]"
+                  style={{ width: `${score}%` }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section className="py-20">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+        <SectionHeading eyebrow="personal" title="interests & hobbies" />
+        <ul className="flex flex-wrap justify-center gap-3 pt-14">
+          {interests.map((interest) => (
+            <li
+              key={interest}
+              className="rounded-full border-[.77px] border-[#E5E7EB] bg-[#F9FAFB] px-5 py-2.5 text-center text-sm font-medium text-[#364153]"
+            >
+              {interest}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </article>
+);
 
 export default About;

@@ -1,173 +1,203 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { MapPin } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import FormField from "../components/FormField";
+import SectionHeading from "../components/SectionHeading";
+import { formSchema } from "../utils/formSchema";
+
+const contactMethods = [
+  { id: "contact-email", label: "Email", value: "email" },
+  { id: "contact-phone", label: "Phone", value: "phone" },
+  { id: "contact-whatsapp", label: "Whatsapp", value: "whatsapp" },
+];
+
+const technologyOptions = [
+  "React",
+  "Node.js",
+  "Python",
+  "TypeScript",
+  "React Native",
+  "Vue.js",
+  "Django",
+  "Express.js",
+];
+
+const contactDetails = [
+  { icon: "📍", label: "Location", value: "San Francisco, CA 94105" },
+  { icon: "✉️", label: "Email", value: "alex.carter@email.com", accent: true },
+  { icon: "📞", label: "Phone", value: "+1 (415) 555-0192" },
+  { icon: "🕒", label: "Hours", value: "Mon – Fri, 9 AM – 6 PM PST" },
+];
+
+const socialProfiles = [
+  { network: "GitHub", handle: "@alexcarter" },
+  { network: "LinkedIn", handle: "Alex Carter" },
+  { network: "Twitter", handle: "@alexcodes" },
+  { network: "Dev.To", handle: "@alexcarter" },
+];
+
+const defaultValues = {
+  fullName: "",
+  email: "",
+  phone: "",
+  subject: "",
+  country: "",
+  message: "",
+  contactMethod: "",
+  technologies: [],
+};
 
 const Contact = () => {
+  const [notice, setNotice] = useState({
+    type: "",
+    text: "",
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(formSchema),
+    mode: "onChange",
+    defaultValues,
+  });
+
+  function onValid() {
+    setNotice({
+      type: "success",
+      text: "Your message is ready to send.",
+    });
+    reset();
+  }
+
+  function onInvalid() {
+    setNotice({
+      type: "error",
+      text: "Please correct the highlighted fields and try again.",
+    });
+  }
+
+  function onReset() {
+    reset();
+    setNotice({ type: "", text: "" });
+  }
   return (
     <article>
       {/* Heading */}
-      <section className="py-16 bg-[#F9FAFB] border-[.77px] border-[#F3F4F6]">
-        <div className="px-6">
-          <p className="text-[12px] text-[#FF5F22] leading-4 tracking-[1.2px] text-center uppercase font-semibold">
-            get in touch
-          </p>
-          <h1 className="pt-3 text-[36px] text-[#101828] leading-10 text-center font-extrabold capitalize">
-            contact me
-          </h1>
-          <p className="pt-4 text-[16px] text-[#6A7282] leading-6 text-center">
-            Have a project in mind or just want to say hello? Fill out the form
-            and I'll get back to you within 24 hours.
-          </p>
+      <section className="border-[.77px] border-[#F3F4F6] bg-[#F9FAFB] py-16">
+        <div className="mx-auto max-w-3xl px-6 md:px-8">
+          <SectionHeading
+            eyebrow="get in touch"
+            title="contact me"
+            titleAs="h1"
+            titleClassName="text-[36px] font-extrabold leading-10"
+            showRule={false}
+            description="Have a project in mind or just want to say hello? Fill out the form and I'll get back to you within 24 hours."
+          />
         </div>
       </section>
 
       {/* Section 1 */}
       <section className="py-16">
-        <div className="grid px-6 gap-12">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:px-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-12">
           {/* Form */}
-          <form action="">
-            <h1 className="text-[20px] text-[#101828] leading-7 font-bold">
+          <form noValidate onSubmit={handleSubmit(onValid, onInvalid)}>
+            <h2 className="text-[20px] text-[#101828] leading-7 font-bold">
               Send a Message
-            </h1>
+            </h2>
+            {notice.text && (
+              <p
+                role={notice.type === "error" ? "alert" : "status"}
+                className={`pt-4 text-sm ${notice.type === "error" ? "text-red-600" : "text-green-700"}`}
+              >
+                {notice.text}
+              </p>
+            )}
             {/* Name & Email */}
-            <div className="pt-7 flex flex-col gap-5">
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Full Name{" "}
-                  <span className="text-[14px] text-[#FF6467] font-medium leading-5 ">
-                    *
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Jordan Smith"
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Email Address{" "}
-                  <span className="text-[14px] text-[#FF6467] font-medium leading-5 ">
-                    *
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="you@example.com"
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5"
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-5 pt-7 md:grid-cols-2">
+              <FormField
+                label="Full Name"
+                name="fullName"
+                register={register}
+                error={errors.fullName}
+                required
+                autoComplete="name"
+                placeholder="Jordan Smith"
+              />
+              <FormField
+                label="Email Address"
+                name="email"
+                type="email"
+                register={register}
+                error={errors.email}
+                required
+                autoComplete="email"
+                placeholder="you@example.com"
+              />
             </div>
 
             {/* Phone Number & Subject */}
-            <div className="pt-5 flex flex-col gap-5">
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Phone Number{" "}
-                </label>
-                <input
-                  type="text"
-                  placeholder="+1 (415) 555-0100"
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Subject{" "}
-                  <span className="text-[14px] text-[#FF6467] font-medium leading-5 ">
-                    *
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Project Inquiry"
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5"
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-5 pt-5 md:grid-cols-2">
+              <FormField
+                label="Phone Number"
+                name="phone"
+                type="tel"
+                register={register}
+                autoComplete="tel"
+                placeholder="+1 (415) 555-0100"
+              />
+              <FormField
+                label="Subject"
+                name="subject"
+                register={register}
+                error={errors.subject}
+                required
+                placeholder="Project Inquiry"
+              />
             </div>
 
             {/* Country and Message */}
-            <div className="pt-5 flex flex-col gap-5">
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Country{" "}
-                </label>
-                <input
-                  type="text"
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label
-                  htmlFor=""
-                  className="text-[14px] leading-5 font-medium pb-1.5"
-                >
-                  Message{" "}
-                  <span className="text-[14px] text-[#FF6467] font-medium leading-5 ">
-                    *
-                  </span>
-                </label>
-                <textarea
-                  type="text"
-                  rows={5}
-                  placeholder="Tell me about your project or what you need help with..."
-                  className="py-3 px-4 border-[.77px] border-[#E5E7EB] rounded-lg text-[14px] text-[#99A1AF] leading-5 resize-none"
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-5 pt-5 md:grid-cols-2">
+              <FormField
+                label="Country"
+                name="country"
+                register={register}
+                autoComplete="country-name"
+              />
+              <FormField
+                as="textarea"
+                label="Message"
+                name="message"
+                register={register}
+                error={errors.message}
+                required
+                rows={5}
+                placeholder="Tell me about your project or what you need help with..."
+                className="resize-none"
+              />
             </div>
 
             {/* Contact Method */}
             <div className="pt-6">
-              <p
-                htmlFor=""
-                className="text-[14px] text-[#364153] leading-5 font-medium"
-              >
+              <p className="text-[14px] font-medium leading-5 text-[#364153]">
                 Preferred Contact Method
               </p>
               <div className="flex gap-6">
-                <div className="flex gap-2.5">
-                  <input
-                    type="radio"
-                    id="email"
-                    name="contact"
-                    value="email"
-                    className="accent-[#FF5F22]"
-                  />
-                  <label for="email">Email</label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input
-                    type="radio"
-                    id="phone"
-                    name="contact"
-                    value="phone"
-                    className="accent-[#FF5F22]"
-                  />
-                  <label for="phone">Phone</label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input
-                    type="radio"
-                    id="whatsapp"
-                    name="contact"
-                    value="whatsapp"
-                    className="accent-[#FF5F22]"
-                  />
-                  <label for="whatsapp">Whatsapp</label>
-                </div>
+                {contactMethods.map(({ id, label, value }) => (
+                  <div key={id} className="flex gap-2.5">
+                    <input
+                      type="radio"
+                      id={id}
+                      {...register("contactMethod")}
+                      value={value}
+                      className="accent-[#FF5F22]"
+                    />
+                    <label htmlFor={id}>{label}</label>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -177,92 +207,42 @@ const Contact = () => {
                 Technologies Interested In
               </p>
               <div className="pt-1.5 grid grid-rows-4 grid-cols-2 gap-3">
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    React
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    Node.js
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    Python
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    TypeScript
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    React Native
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    Vue.js
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    Django
-                  </label>
-                </div>
-                <div className="flex gap-2.5">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-[14px] text-[#4A5565] leading-5"
-                  >
-                    Express.js
-                  </label>
-                </div>
+                {technologyOptions.map((technology) => {
+                  const id = `technology-${technology
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")}`;
+
+                  return (
+                    <div key={technology} className="flex gap-2.5">
+                      <input
+                        id={id}
+                        type="checkbox"
+                        value={technology}
+                        {...register("technologies")}
+                      />
+                      <label
+                        htmlFor={id}
+                        className="text-[14px] leading-5 text-[#4A5565]"
+                      >
+                        {technology}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Button */}
-            <div className="pt-8">
+            <div className="pt-8 md:flex gap-4">
               <button
                 type="submit"
-                className="bg-[#111111] py-3 px-8 rounded-lg text-[16px] text-white leading-6 font-semibold text-center w-fit cursor-pointer"
+                className="bg-[#111111] py-3 px-8 text-[16px] text-white leading-6 text-center font-semibold w-fit rounded-lg mt-4 cursor-pointer"
               >
                 Send Messages
               </button>
-              <br />
               <button
                 type="button"
+                onClick={onReset}
                 className="border-[.77px] border-[#E5E7EB] py-3 px-8 text-[16px] text-[#4A5565] leading-6 text-center font-semibold w-fit rounded-lg mt-4 cursor-pointer"
               >
                 Reset Form
@@ -271,122 +251,66 @@ const Contact = () => {
           </form>
 
           {/* Information */}
-          <div className="">
-            <div className="p-6 border-[.77px] border-[#F3F4F6] bg-[#F9FAFB]">
-              <h1 className="text-[16px] text-[#101828] leading-6 font-semibold">
+          <aside className="space-y-6">
+            <section className="border-[.77px] border-[#F3F4F6] bg-[#F9FAFB] p-6">
+              <h2 className="text-base font-semibold leading-6 text-[#101828]">
                 Office Information
-              </h1>
-              <div className="pt-5">
-                <div className="flex gap-3">
-                  <div className="pt-0.5 text-[16px] text-[#0F172A]">📍</div>
-                  <div className="flex flex-col">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Location
-                    </p>
-                    <p className="text-[14px] text-[#6A7282] leading-5">
-                      San Francisco, CA 94105
-                    </p>
+              </h2>
+              <dl className="space-y-4 pt-5">
+                {contactDetails.map(({ icon, label, value, accent }) => (
+                  <div key={label} className="flex gap-3">
+                    <span aria-hidden="true" className="pt-0.5 text-base">
+                      {icon}
+                    </span>
+                    <div>
+                      <dt className="text-sm font-medium leading-5 text-[#364153]">
+                        {label}
+                      </dt>
+                      <dd
+                        className={`text-sm leading-5 ${accent ? "text-[#FF5F22]" : "text-[#6A7282]"}`}
+                      >
+                        {value}
+                      </dd>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-3 pt-4">
-                  <div className="pt-0.5 text-[16px] text-[#0F172A]">✉️</div>
-                  <div className="flex flex-col">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Email
-                    </p>
-                    <p className="text-[14px] text-[#FF5F22] leading-5">
-                      alex.carter@email.com
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-3 pt-4">
-                  <div className="pt-0.5 text-[16px] text-[#0F172A]">📞</div>
-                  <div className="flex flex-col">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Phone
-                    </p>
-                    <p className="text-[14px] text-[#6A7282] leading-5">
-                      +1 (415) 555-0192
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-3 pt-4">
-                  <div className="pt-0.5 text-[16px] text-[#0F172A]">🕒</div>
-                  <div className="flex flex-col">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Hours
-                    </p>
-                    <p className="text-[14px] text-[#6A7282] leading-5">
-                      Mon – Fri, 9 AM – 6 PM PST
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                ))}
+              </dl>
+            </section>
 
-            {/* Find Me */}
-            <div className="pt-6">
-              <div className="bg-[#F9FAFB] border-[.77px] border-[#F3F4F6] p-6">
-                <h1 className="text-[16px] text-[#101828] leading-6 font-semibold">
-                  Find Me Online
-                </h1>
-                <div className="flex flex-col pt-4">
-                  <div className="flex justify-between border-b-[.77px] border-[#F3F4F6] ">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      GitHub
-                    </p>
-                    <span className="text-[12px] flex items-center text-[#99A1AF] leading-4">
-                      @alexcarter →
+            <section className="border-[.77px] border-[#F3F4F6] bg-[#F9FAFB] p-6">
+              <h2 className="text-base font-semibold leading-6 text-[#101828]">
+                Find Me Online
+              </h2>
+              <ul className="pt-4">
+                {socialProfiles.map(({ network, handle }) => (
+                  <li
+                    key={network}
+                    className="flex justify-between border-b-[.77px] border-[#F3F4F6] py-3 text-sm leading-5 last:border-b-0"
+                  >
+                    <span className="font-medium text-[#364153]">
+                      {network}
                     </span>
-                  </div>
-                  <div className="flex justify-between border-b-[.77px] border-[#F3F4F6] pt-3">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      LinkedIn
-                    </p>
-                    <span className="text-[12px] flex items-center text-[#99A1AF] leading-4">
-                      Alex Carter →
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-b-[.77px] border-[#F3F4F6] pt-3">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Twitter
-                    </p>
-                    <span className="text-[12px] flex items-center text-[#99A1AF] leading-4">
-                      @alexcodes →
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-b-[.77px] border-[#F3F4F6] pt-6">
-                    <p className="text-[14px] text-[#364153] leading-5 font-medium">
-                      Dev.To
-                    </p>
-                    <span className="text-[12px] flex items-center text-[#99A1AF] leading-4">
-                      @alexcarter →
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <span className="text-xs text-[#99A1AF]">{handle} →</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-            {/* Map */}
-            <div className="pt-6">
-              <div className="bg-[#FFF7ED] border-[.77px] border-[#F3F4F6] px-4 rounded-xl flex flex-col items-center justify-center h-48">
-                <div className="pb-3">
-                  <div className="rounded-full w-8 h-8 bg-[#111111] shadow-md flex flex-col items-center justify-center">
-                    <MapPin color="white" size={16} />
-                  </div>
-                </div>
-                <p className="text-[14px] text-[#FF5F22] leading-5 text-center font-semibold">
-                  San Francisco, CA
-                </p>
-                <p className="pt-0.5 text-[12px] text-[#FF5F22B2] text-center leading-4">
-                  United States
-                </p>
-                <p className="pt-3 text-[12px] leading-4 text-[#FFB86A] text-center">
-                  37.7749° N, 122.4194° W
-                </p>
+            <section className="flex h-48 flex-col items-center justify-center rounded-xl border-[.77px] border-[#F3F4F6] bg-[#FFF7ED] px-4">
+              <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] shadow-md">
+                <MapPin aria-hidden="true" color="white" size={16} />
               </div>
-            </div>
-          </div>
+              <p className="text-center text-sm font-semibold leading-5 text-[#FF5F22]">
+                San Francisco, CA
+              </p>
+              <p className="pt-0.5 text-center text-xs leading-4 text-[#FF5F22B2]">
+                United States
+              </p>
+              <p className="pt-3 text-center text-xs leading-4 text-[#FFB86A]">
+                37.7749° N, 122.4194° W
+              </p>
+            </section>
+          </aside>
         </div>
       </section>
     </article>
