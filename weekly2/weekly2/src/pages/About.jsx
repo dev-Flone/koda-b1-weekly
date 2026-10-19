@@ -106,7 +106,7 @@ const About = () => (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
         <SectionHeading eyebrow="career" title="work experience" />
-        <div className="grid grid-cols-1 gap-6 pt-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 pt-14 md:grid-cols-1 lg:grid-cols-3">
           {careerHighlights.map(({ title, company, date, highlights }) => (
             <article
               key={title}
@@ -144,7 +144,7 @@ const About = () => (
     <section className="bg-[#F9FAFB] py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
         <SectionHeading eyebrow="skills" title="technical proficiency" />
-        <ul className="grid grid-cols-1 gap-x-12 gap-y-8 pt-14 md:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-x-12 gap-y-8 pt-14 md:grid-cols-1">
           {proficiency.map(({ name, score }) => (
             <li key={name}>
               <div className="flex justify-between">

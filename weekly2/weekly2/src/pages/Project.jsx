@@ -64,7 +64,7 @@ const Project = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 gap-7 pt-12 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-7 pt-12 md:grid-cols-1 lg:grid-cols-3">
             {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.id}

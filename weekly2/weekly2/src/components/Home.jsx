@@ -58,7 +58,7 @@ const Home = () => (
           title="a little about me"
           description="I'm passionate about writing clean, maintainable code and crafting experiences that users genuinely enjoy."
         />
-        <div className="grid grid-cols-1 gap-6 pt-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 pt-14 md:grid-cols-1 lg:grid-cols-3">
           {principles.map(({ title, description }) => (
             <article
               key={title}
@@ -107,7 +107,7 @@ const Home = () => (
           title="featured projects"
           description="A selection of projects that showcase my skills across the full development stack."
         />
-        <div className="grid grid-cols-1 gap-7 pt-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-7 pt-14 md:grid-cols-1 lg:grid-cols-3">
           {featuredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -130,7 +130,7 @@ const Home = () => (
           title="what client say"
           description="Feedback from people I've had the pleasure of working with."
         />
-        <div className="grid grid-cols-1 gap-7 pt-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-7 pt-14 md:grid-cols-1 lg:grid-cols-3">
           {testimonials.map(({ quote, name, role, image }) => (
             <figure
               key={name}

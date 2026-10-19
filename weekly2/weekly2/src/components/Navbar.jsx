@@ -13,9 +13,9 @@ const Navbar = () => {
   return (
     <nav
       aria-label="Main navigation"
-      className="sticky top-0 z-50 w-full bg-white/95"
+      className="sticky top-0 z-50 bg-white/95 space-x-8"
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-8 lg:px-12">
+      <div className="flex h-16 items-center justify-between px-6 md:px-25 lg:px-12">
         <Link
           to="/"
           onClick={handleNavigation}
@@ -81,7 +81,7 @@ const Navbar = () => {
                 end={to === "/"}
                 onClick={handleNavigation}
                 className={({ isActive }) =>
-                  `block w-full rounded-md px-4 py-3 text-left text-[14px] font-medium leading-5 text-[#111111] ${isActive ? "bg-[#F3F4F6]" : "bg-white hover:bg-[#F3F4F6]"}`
+                  `block w-full rounded-md px-4 py-3 text-left text-[14px] font-medium leading-5 text-[#111111] ${isActive ? "bg-[#F3F4F6]" : "bg-white/95 hover:bg-[#F3F4F6]"}`
                 }
               >
                 {label}
