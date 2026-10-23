@@ -3,7 +3,23 @@ import projects from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import SectionHeading from "../components/SectionHeading";
 
+/**
+ * Daftar kategori proyek yang tersedia untuk filter.
+ *
+ * @type {string[]}
+ */
+
 const projectTypes = ["All", "Frontend", "Backend", "Fullstack"];
+
+/**
+ * Menampilkan tombol aksi untuk setiap kartu proyek.
+ *
+ * Tombol GitHub dan Live Demo ditampilkan secara berdampingan
+ * sesuai layout yang ditentukan oleh komponen induk.
+ *
+ * @component
+ * @returns {JSX.Element} Elemen tombol aksi proyek.
+ */
 
 const ProjectActions = () => (
   <>
@@ -22,8 +38,28 @@ const ProjectActions = () => (
   </>
 );
 
+/**
+ * Menampilkan halaman portfolio yang berisi daftar proyek
+ *
+ * @component
+ * @returns {JSX.Element} Halaman daftar proyek portfolio.
+ */
+
 const Project = () => {
+  /**
+   * Menyimpan kategori proyek yang sedang dipilih.
+   *
+   * Nilai awal "All" menampilkan seluruh proyek.
+   *
+   * @type {[string, import("react").Dispatch<import("react").SetStateAction<string>>]}
+   */
   const [selectedType, setSelectedType] = useState("All");
+
+  /**
+   * Memfilter daftar proyek berdasarkan kategori yang dipilih.
+   *
+   * @type {typeof projects}
+   */
 
   const filteredProjects =
     selectedType === "All"

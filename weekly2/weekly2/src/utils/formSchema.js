@@ -9,7 +9,10 @@ export const formSchema = yup.object({
     .required("Email address is required.")
     .email("Enter a valid email address."),
 
-  phone: yup.string().trim().notRequired(),
+  phone: yup
+    .string()
+    .notRequired()
+    .matches(/^[0-9+-]*$/, "Format nomor telepon tidak valid"),
 
   subject: yup.string().trim().required("Subject is required."),
 

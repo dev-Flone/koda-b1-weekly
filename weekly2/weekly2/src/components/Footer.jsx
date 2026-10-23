@@ -82,8 +82,8 @@ const Footer = () => {
               © 2026 Alex Carter. All rights reserved.
             </p>
             <Link
-              to="/"
               className="flex gap-2 items-center text-[14px] text-[#99A1AF] leading-5"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Back to Top <ArrowUp size={16} />
             </Link>

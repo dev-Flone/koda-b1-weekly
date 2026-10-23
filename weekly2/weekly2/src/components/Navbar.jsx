@@ -13,9 +13,9 @@ const Navbar = () => {
   return (
     <nav
       aria-label="Main navigation"
-      className="sticky top-0 z-50 bg-white/95 space-x-8"
+      className="sticky top-0 z-100 bg-white/95"
     >
-      <div className="flex h-16 items-center justify-between px-6 md:px-25 lg:px-12">
+      <div className="top-20 flex h-16 items-center justify-between px-6 md:px-25 lg:px-12">
         <Link
           to="/"
           onClick={handleNavigation}
@@ -69,36 +69,48 @@ const Navbar = () => {
         </button>
       </div>
 
-      {isActive && (
-        <ul
-          id="navbar-menu"
-          className="flex flex-col gap-1 border-t-[.77px] border-[#F3F4F6] px-6 pb-5 pt-2 lg:hidden"
-        >
-          {navigationItems.map(({ label, to }) => (
-            <li key={to}>
-              <NavLink
-                to={to}
-                end={to === "/"}
-                onClick={handleNavigation}
-                className={({ isActive }) =>
-                  `block w-full rounded-md px-4 py-3 text-left text-[14px] font-medium leading-5 text-[#111111] ${isActive ? "bg-[#F3F4F6]" : "bg-white/95 hover:bg-[#F3F4F6]"}`
-                }
-              >
-                {label}
-              </NavLink>
-            </li>
-          ))}
-          <li>
-            <Link
-              to="/contact"
+      <ul
+        id="navbar-menu"
+        className={`absolute flex w-full flex-col gap-1 border-t-[.77px] border-[#F3F4F6] bg-white px-6 pb-5 pt-2 shadow-lg lg:hidden transition-all duration-600 ease-in-out ${
+          isActive
+            ? "translate-y-0"
+            : "opacity-0 -translate-2 pointer-events-none"
+        }`}
+      >
+        {navigationItems.map(({ label, to }) => (
+          <li key={to}>
+            <NavLink
+              to={to}
+              end={to === "/"}
               onClick={handleNavigation}
-              className="block rounded-md bg-[#111111] px-4 py-2 text-[14px] font-medium leading-5 text-white hover:bg-black"
+              className={({ isActive }) =>
+                `block w-full rounded-md px-4 py-3 text-left
+              text-[14px] font-medium leading-5 text-[#111111]
+              transition-all duration-200
+              ${
+                isActive
+                  ? "bg-[#F3F4F6]"
+                  : "bg-white/95 hover:bg-[#F3F4F6] hover:translate-x-2"
+              }`
+              }
             >
-              Hire Me
-            </Link>
+              {label}
+            </NavLink>
           </li>
-        </ul>
-      )}
+        ))}
+
+        <li>
+          <Link
+            to="/contact"
+            onClick={handleNavigation}
+            className="block rounded-md bg-[#111111] px-4 py-2
+            text-[14px] font-medium leading-5 text-white
+            transition-colors duration-200 hover:bg-black"
+          >
+            Hire Me
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };

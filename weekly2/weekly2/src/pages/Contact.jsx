@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MapPin } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormField from "../components/FormField";
 import SectionHeading from "../components/SectionHeading";
@@ -48,16 +48,28 @@ const defaultValues = {
   technologies: [],
 };
 
+// keepFieldsRef is an internal React Hook Form option used to retain field refs during reset.
 const Contact = () => {
   const [notice, setNotice] = useState({
     type: "",
     text: "",
   });
 
+  const [messages, setMessages] = useState(() => {
+    const savedMessage = localStorage.getItem("contactMessage");
+
+    return savedMessage ? JSON.parse(savedMessage) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("contactMessage", JSON.stringify(messages));
+  }, [messages]);
+
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
@@ -65,12 +77,26 @@ const Contact = () => {
     defaultValues,
   });
 
-  function onValid() {
+  function resetForm() {
+    reset(defaultValues, { keepFieldsRef: true });
+    Object.entries(defaultValues).forEach(([name, value]) => {
+      setValue(name, value);
+    });
+  }
+
+  function onValid(data) {
+    const newMessage = {
+      id: crypto.randomUUID(),
+      ...data,
+      createdAt: new Date().toISOString(),
+    };
+
+    setMessages((prevMessage) => [...prevMessage, newMessage]);
     setNotice({
       type: "success",
       text: "Your message is ready to send.",
     });
-    reset();
+    resetForm();
   }
 
   function onInvalid() {
@@ -81,7 +107,7 @@ const Contact = () => {
   }
 
   function onReset() {
-    reset();
+    resetForm();
     setNotice({ type: "", text: "" });
   }
   return (
@@ -146,6 +172,8 @@ const Contact = () => {
                 name="phone"
                 type="tel"
                 register={register}
+                error={errors.phone}
+                onlyNumbers
                 autoComplete="tel"
                 placeholder="+1 (415) 555-0100"
               />
@@ -233,7 +261,7 @@ const Contact = () => {
             </div>
 
             {/* Button */}
-            <div className="pt-8 md:flex gap-4">
+            <div className="flex flex-col pt-8 md:flex-row md:gap-4">
               <button
                 type="submit"
                 className="bg-[#111111] py-3 px-8 text-[16px] text-white leading-6 text-center font-semibold w-fit rounded-lg mt-4 cursor-pointer"
