@@ -24,6 +24,11 @@ KairnPizza adalah website restoran pizza sederhana dimana user bisa melihat home
 - Di halaman menu, kita bisa melakukan pencarian untuk pizza yang diinginkan.
 - Di halaman kontak, kita bisa mengirimkan form, yang dimana akan disimpan didalam localstorage. Lalu ditampilkan di bagian bawah halaman, kita bisa juga menghapus pesan yang kita inginkan menggunakan tombol delete.
 
+## Database Design
+
+- ERD: [database/ERD.md](./database/ERD.md)
+- Skema MySQL dan data awal menu: [database/schema.sql](./database/schema.sql)
+
 ## How to Run
 
 1. Install react dengan `npm create vite@latest`
