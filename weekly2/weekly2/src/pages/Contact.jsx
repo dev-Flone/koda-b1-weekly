@@ -48,7 +48,6 @@ const defaultValues = {
   technologies: [],
 };
 
-// keepFieldsRef is an internal React Hook Form option used to retain field refs during reset.
 const Contact = () => {
   const [notice, setNotice] = useState({
     type: "",
